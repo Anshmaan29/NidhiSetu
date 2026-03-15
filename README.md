@@ -1,204 +1,198 @@
-# MyScheme Portal - Enhanced Government Benefits Portal
+<![CDATA[<div align="center">
 
-## 🏛️ Project Overview
+# 🏆 NidhiSetu — Government Benefits Made Easy
 
-MyScheme Portal is an enhanced version of the government's MyScheme portal, designed to make citizens aware of schemes they are eligible for and ensure smooth benefit delivery. The portal focuses on user-centric automation, notifications, and seamless verification to improve accessibility and reduce errors in scheme distribution.
+### *Winner at Smart BU Hackathon — Ranked 17th out of 700+ Teams* 🎉
 
-## 🎯 Key Features
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)]()
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)]()
+[![Made with](https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge)]()
 
-### 1. **Eligibility Notification System**
-- Automatically notifies users when they become eligible for schemes
-- Age-based notifications (e.g., upon turning 18)
-- Real-time eligibility checking based on user profile
+<br/>
 
-### 2. **DBT Account Awareness**
-- Educational popup explaining Direct Benefit Transfer (DBT)
-- Interactive button to check if bank account is seeded with Aadhaar
-- Clear distinction between Aadhaar-linked and DBT-enabled accounts
+> **NidhiSetu** (निधिसेतु — *Bridge to Benefits*) is an AI-powered government scheme discovery portal that helps Indian citizens find, verify, and apply for government schemes they're eligible for — with voice assistance, blockchain verification, and multi-language support.
 
-### 3. **Aadhaar Account Verification**
-- One-click verification of Aadhaar-bank account linkage
-- Simulated verification process with loading animations
-- Direct redirection to UIDAI for official verification
+<br/>
 
-### 4. **Scheme Recommendation Engine**
-- Intelligent scheme suggestions based on user profile
-- Age, income, gender, education, and occupation-based filtering
-- Real-time eligibility assessment
-
-### 5. **Voice Chatbot Integration**
-- Voice-activated assistant using Web Speech API
-- Natural language processing for scheme queries
-- Interactive voice commands for navigation
-
-### 6. **Category-wise Scheme Organization**
-- Agriculture (PM Kisan Yojana)
-- Education (PM Scholarship)
-- Social Welfare (Old Age Pension)
-- Women Welfare (PM Ujjwala Yojana)
-
-### 7. **Official Website Redirection**
-- Direct links to official government portals
-- Secure redirection to UIDAI, DBT Bharat, and MyGov
-- Application buttons for each scheme
-
-## 🎨 Design Features
-
-### **Indian Theme Integration**
-- **Tiranga Color Scheme**: Orange, white, and green gradients
-- **Ashok Chakra**: Animated spinning wheel in header
-- **Cultural Elements**: Hindi text and Indian flag-inspired design
-
-### **Modern UI/UX**
-- Responsive design for all devices
-- Smooth animations and transitions
-- Interactive hover effects
-- Clean, accessible interface
-
-### **Animations & Interactions**
-- Floating cards animation
-- Pulse effects for voice interface
-- Smooth scrolling and transitions
-- Loading states and feedback
-
-## 🚀 Sample Schemes Implemented
-
-### 1. **PM Kisan Yojana**
-- **Target**: Farmers with landholding up to 2 hectares
-- **Benefit**: ₹6,000 per year in three installments
-- **Eligibility**: Valid Aadhaar, bank account linkage
-
-### 2. **PM Scholarship for Students**
-- **Target**: Students aged 18+ in higher education
-- **Benefit**: Merit-based financial support
-- **Eligibility**: 60%+ marks, family income < ₹6 lakhs
-
-### 3. **Old Age Pension Scheme**
-- **Target**: Citizens aged 60+
-- **Benefit**: Monthly pension support
-- **Eligibility**: Income < ₹1 lakh, Aadhaar-linked account
-
-### 4. **PM Ujjwala Yojana**
-- **Target**: Women from BPL families
-- **Benefit**: Free LPG connection
-- **Eligibility**: Female head of household, BPL status
-
-## 🛠️ Technical Implementation
-
-### **Frontend Technologies**
-- **HTML5**: Semantic structure and accessibility
-- **CSS3**: Advanced styling with gradients, animations, and responsive design
-- **JavaScript ES6+**: Modern JavaScript with modules and async/await
-- **Web Speech API**: Voice recognition and synthesis
-
-### **Key JavaScript Features**
-- Dynamic content rendering
-- Form validation and processing
-- Voice command processing
-- Smooth animations and transitions
-- Local storage for user preferences
-
-### **Responsive Design**
-- Mobile-first approach
-- Flexible grid layouts
-- Touch-friendly interface
-- Cross-browser compatibility
-
-## 📱 Usage Instructions
-
-### **Getting Started**
-1. Open `index.html` in a modern web browser
-2. The DBT Account Awareness popup will appear automatically
-3. Explore different sections using the navigation
-
-### **Checking Eligibility**
-1. Click "Check Eligibility" button
-2. Fill in your details (age, income, gender, etc.)
-3. Click "Check My Eligibility" to see results
-4. Apply for eligible schemes directly
-
-### **Using Voice Assistant**
-1. Click "Voice Assistant" button
-2. Allow microphone permissions
-3. Speak your queries naturally
-4. Follow voice prompts for navigation
-
-### **Exploring Schemes**
-1. Browse by categories (Agriculture, Education, etc.)
-2. Click on scheme cards for details
-3. Use "Apply Now" for applications
-4. Use "Official Website" for government portals
-
-## 🔧 Browser Compatibility
-
-- **Chrome**: Full support including voice features
-- **Firefox**: Full support, limited voice features
-- **Safari**: Full support, limited voice features
-- **Edge**: Full support including voice features
-
-## 🚀 Future Enhancements
-
-### **Planned Features**
-- Mobile app integration
-- SMS/Email notifications
-- AI-based scheme prediction
-- Multi-language support
-- Offline functionality
-- Advanced analytics dashboard
-
-### **API Integrations**
-- UIDAI verification API
-- Government scheme database
-- Payment gateway integration
-- Notification services
-
-## 📊 Impact & Benefits
-
-### **For Citizens**
-- Increased awareness of available schemes
-- Simplified application process
-- Reduced human error in applications
-- Better understanding of DBT system
-
-### **For Government**
-- Improved scheme adoption rates
-- Reduced administrative burden
-- Better data accuracy
-- Enhanced transparency
-
-### **For Society**
-- Digital literacy improvement
-- Financial inclusion
-- Social welfare enhancement
-- Economic empowerment
-
-## 🎯 Target Audience
-
-- **Primary**: Indian citizens seeking government benefits
-- **Secondary**: Government officials and administrators
-- **Tertiary**: NGOs and social workers
-
-## 📈 Success Metrics
-
-- User engagement rates
-- Scheme application completion
-- DBT account verification success
-- Voice assistant usage
-- Mobile responsiveness
-
-## 🔒 Security & Privacy
-
-- No sensitive data storage
-- Secure redirection to official portals
-- Privacy-focused design
-- HTTPS-ready implementation
-
-## 📞 Support & Contact
-
-For technical support or feature requests, please refer to the official government portals or contact the development team.
+</div>
 
 ---
 
-**Built with ❤️ for the citizens of India**
+## 🏅 Hackathon Achievement
 
-*Making government schemes accessible to every citizen*
+| 🏆 Event | 📊 Rank | 👥 Competing Teams |
+|---|---|---|
+| **Smart BU Hackathon** | **17th** | **700+** |
+
+We are proud to announce that **NidhiSetu won the Smart BU Hackathon**, securing **17th place out of 700+ teams**! This achievement validates our vision of making government benefits accessible to every citizen of India through technology.
+
+---
+
+## 🚀 Live Features
+
+### 🔍 Smart Scheme Discovery
+- **AI-powered eligibility engine** that matches users to 500+ government schemes based on age, income, gender, occupation, category, and education level
+- Category-wise browsing — Agriculture, Education, Healthcare, Women Welfare, Employment, Social Welfare
+
+### 🎙️ Voice Assistant (Multilingual)
+- Voice-activated chatbot using **Web Speech API**
+- Natural language processing for scheme queries
+- Supports **English, Hindi (हिंदी), and Tamil (தமிழ்)**
+
+### 🔗 Blockchain Integration
+- **MetaMask wallet** connectivity for secure identity verification
+- Citizen registration on **Polygon Amoy Testnet**
+- Smart contracts for transparent benefit tracking (*Solidity + Hardhat*)
+
+### 🏦 DBT Account Verification
+- Real-time **Aadhaar–Bank Account linkage** verification
+- Guided verification flow with direct redirection to **UIDAI** and **DBT Bharat** portals
+
+### 📲 Notification System
+- WhatsApp & SMS notification preferences
+- Real-time eligibility alerts when users become eligible for new schemes
+
+### ♿ Accessibility
+- High contrast mode & large text toggle
+- Screen-reader friendly semantic HTML
+- Responsive design for all device sizes
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| **Frontend** | HTML5 · CSS3 · JavaScript (ES6+) · AOS Animations · Animate.css |
+| **Voice AI** | Web Speech API (Recognition + Synthesis) |
+| **Blockchain** | Solidity · Hardhat · Ethers.js · Polygon Amoy Testnet |
+| **Backend** | Node.js · Express.js · MongoDB (Mongoose) |
+| **Design** | Poppins · Noto Sans Devanagari/Tamil · Font Awesome 6 · Indian Tricolor Theme |
+
+---
+
+## 📁 Project Structure
+
+```
+NidhiSetu/
+├── index.html                  # Main portal page
+├── script.js                   # Core application logic (131KB)
+├── styles.css                  # Main stylesheet with animations
+├── styles-old.css              # Legacy styles
+├── clear-storage.html          # Storage management utility
+├── assets/
+│   ├── images/schemes/         # Scheme card images
+│   └── videos/                 # Hero section background video
+├── blockchain/
+│   ├── contracts/              # Solidity smart contracts
+│   │   ├── BenefitTracker.sol
+│   │   ├── CitizenRegistry.sol
+│   │   └── SchemeEligibility.sol
+│   ├── frontend/               # Web3 integration scripts
+│   ├── models/                 # MongoDB models
+│   ├── scripts/                # Deployment scripts
+│   ├── server.js               # Express API server
+│   ├── hardhat.config.js       # Hardhat configuration
+│   └── setup.sh                # Quick setup script
+├── MONGODB-SETUP.md            # MongoDB configuration guide
+├── blockchain-guide.md         # Blockchain setup documentation
+├── testing-guide.md            # End-to-end testing guide
+└── website-status-guide.md     # Deployment status guide
+```
+
+---
+
+## ⚡ Quick Start
+
+### Prerequisites
+- **Node.js** v16+
+- **MongoDB** (local or Atlas)
+- **MetaMask** browser extension (for blockchain features)
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/Anshmaan29/NidhiSetu.git
+cd NidhiSetu
+```
+
+### 2. Frontend (Static)
+
+Simply open `index.html` in your browser — no build step required!
+
+```bash
+# Or use a local server:
+npx serve .
+```
+
+### 3. Blockchain Backend (Optional)
+
+```bash
+cd blockchain
+npm install
+cp .env.example .env    # Configure your environment variables
+node server.js          # Start the Express API
+```
+
+### 4. Smart Contract Deployment (Optional)
+
+```bash
+cd blockchain
+npx hardhat compile
+npx hardhat run scripts/deploy.js --network amoy
+```
+
+> 📖 For detailed setup instructions, see [blockchain-guide.md](./blockchain-guide.md) and [MONGODB-SETUP.md](./MONGODB-SETUP.md)
+
+---
+
+## 🎯 Key Government Schemes Covered
+
+| Scheme | Category | Benefit |
+|---|---|---|
+| **PM Kisan Yojana** | 🌾 Agriculture | ₹6,000/year for small farmers |
+| **PM Scholarship** | 🎓 Education | Merit-based financial aid |
+| **Old Age Pension** | 🏥 Social Welfare | Monthly pension for 60+ citizens |
+| **PM Ujjwala Yojana** | 👩 Women Welfare | Free LPG connections for BPL families |
+
+---
+
+## 🎨 Design Philosophy
+
+NidhiSetu features a **proud Indian design language**:
+- 🇮🇳 **Tiranga-inspired** gradient color scheme (Saffron · White · Green)
+- 🕉️ **Ashok Chakra** animated spinner in the header
+- 🌐 **Multi-script typography** — Devanagari & Tamil alongside English
+- ✨ **Modern glassmorphism** with smooth AOS scroll animations
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Feel free to:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📜 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+
+**Built with ❤️ for the citizens of India** 🇮🇳
+
+*Making government schemes accessible to every citizen — one click at a time.*
+
+<br/>
+
+**⭐ Star this repo if you found it useful!**
+
+</div>
+]]>
