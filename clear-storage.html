@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear DBT Modal Flag</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #FF9933, #FFFFFF, #138808);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .btn {
+            background: #FF9933;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .btn:hover {
+            background: #e6851a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🏛️ Government Schemes Portal - Storage Cleaner</h2>
+        <p>This tool will clear the localStorage flag so the DBT modal shows automatically again.</p>
+        
+        <button class="btn" onclick="clearStorage()">Clear DBT Modal Flag</button>
+        <button class="btn" onclick="openMainSite()">Open Main Site</button>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        function clearStorage() {
+            localStorage.removeItem('dbtModalShown');
+            document.getElementById('status').innerHTML = 
+                '<p style="color: green; margin-top: 20px;">✅ DBT modal flag cleared! Now refresh the main page to see the auto-popup.</p>';
+        }
+        
+        function openMainSite() {
+            window.open('http://localhost:8080/index.html', '_blank');
+        }
+        
+        // Auto-clear on page load
+        clearStorage();
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "name": "nidhisetu-blockchain",
+  "version": "1.0.0",
+  "description": "Blockchain + MongoDB integration for Nidhisetu government schemes portal - SIH 2025",
+  "main": "server.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network mumbai",
+    "deploy-local": "hardhat run scripts/deploy.js --network localhost",
+    "test": "hardhat test",
+    "node": "hardhat node",
+    "verify": "hardhat verify --network mumbai",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed": "node scripts/seedData.js"
+  },
+  "keywords": [
+    "blockchain",
+    "government",
+    "schemes",
+    "SIH",
+    "web3",
+    "ethereum",
+    "polygon",
+    "mongodb",
+    "express",
+    "nodejs"
+  ],
+  "author": "SIH Team - Nidhisetu",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0",
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "ethers": "^6.8.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.10.0",
+    "validator": "^13.11.0"
+  }
+}

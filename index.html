@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nidhisetu - Government Benefits Made Easy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Government schemes portal for Indian citizens">
+    <meta name="keywords" content="government schemes, India, benefits, DBT, Aadhaar">
+</head>
+<body>
+    <!-- Header with Ashok Chakra -->
+    <header class="header" id="navbar">
+        <div class="container">
+            <div class="logo-section">
+                <div class="brand-container">
+                    <div class="logo-title">
+                        <h1 class="brand-name">Nidhisetu</h1>
+                        <p class="brand-tagline">Schemes Made Simple</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="notifications">
+                    <button class="nav-btn notification-btn" id="notificationsBtn" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notifBadge" style="display:none;">0</span>
+                    </button>
+                    <div class="notifications-dropdown" id="notificationsDropdown" aria-label="Notifications" role="menu">
+                        <div class="notifications-header">
+                            <h4 id="notifHeaderText">Recent Notifications</h4>
+                            <button class="clear-notifs" id="clearNotifications"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <div class="notifications-list" id="notificationsList"></div>
+                        <div class="notifications-empty" id="notificationsEmpty">No notifications yet</div>
+                    </div>
+                </div>
+                <div class="language-dropdown">
+                    <button class="nav-btn language-btn" id="languageToggle">
+                        <i class="fas fa-language"></i> 
+                        <span id="langText">EN</span> 
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="language-menu" id="languageMenu">
+                        <button class="language-option" data-lang="en">
+                            <span class="flag">🇺🇸</span> English
+                        </button>
+                        <button class="language-option" data-lang="hi">
+                            <span class="flag">🇮🇳</span> हिंदी
+                        </button>
+                        <button class="language-option" data-lang="ta">
+                            <span class="flag">🇮🇳</span> தமிழ்
+                        </button>
+                    </div>
+                </div>
+                <button class="nav-btn dark-mode-toggle" id="darkModeToggle">
+                    <i class="fas fa-moon dark-mode-icon"></i>
+                </button>
+                <button class="nav-btn voice-btn" id="voiceChatBtn">
+                    <i class="fas fa-microphone voice-icon"></i>
+                </button>
+                <button class="nav-btn blockchain-btn" id="connectWalletBtn" data-tooltip="Connect your MetaMask wallet">
+                    <div class="btn-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <span class="btn-text">Connect Wallet</span>
+                    <div class="connection-indicator"></div>
+                </button>
+                <button class="login-btn" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> 
+                    <span id="loginText">Login</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login/Registration Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content login-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> <span id="loginTitle">Create Account</span></h2>
+                <button class="close-btn" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="login-container">
+                    <!-- Registration Form Section -->
+                    <div class="login-form-section">
+                        <form id="loginForm" class="login-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fullName"><span id="nameLabel">Full Name</span> *</label>
+                                    <input type="text" id="fullName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginAge"><span id="ageLabel">Age</span> *</label>
+                                    <input type="number" id="loginAge" min="1" max="120" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loginEmail"><span id="emailLabel">Email</span> *</label>
+                                    <input type="email" id="loginEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginPhone"><span id="phoneLabel">Phone Number</span> *</label>
+                                    <input type="tel" id="loginPhone" pattern="[0-9]{10}" required>
+                                </div>
+                            </div>
+                            
+                        <div class="form-group">
+                            <label for="userAadhaar">Aadhaar Number</label>
+                            <input type="text" id="userAadhaar" name="aadhaar" placeholder="Enter 12-digit Aadhaar number" required>
+                        </div>
+                        
+                        <!-- Blockchain Status -->
+                        <div class="blockchain-status" id="walletStatus">
+                            <div class="wallet-disconnected" id="walletStatusContent">
+                                <i class="fas fa-times-circle"></i>
+                                <span id="walletStatusText">Wallet Not Connected</span>
+                            </div>
+                        </div>
+                        
+                        <div class="blockchain-actions">
+                            <button type="button" class="btn btn-outline" id="registerOnBlockchainBtn">
+                                <i class="fab fa-ethereum"></i> Register on Blockchain
+                            </button>
+                        </div>                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loginGender"><span id="genderLabel">Gender</span> *</label>
+                                    <select id="loginGender" required>
+                                        <option value=""><span id="selectGender">Select Gender</span></option>
+                                        <option value="male"><span id="maleOption">Male</span></option>
+                                        <option value="female"><span id="femaleOption">Female</span></option>
+                                        <option value="other"><span id="otherOption">Other</span></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginCategory"><span id="categoryLabel">Category</span> *</label>
+                                    <select id="loginCategory" required>
+                                        <option value=""><span id="selectCategory">Select Category</span></option>
+                                        <option value="general"><span id="generalOption">General</span></option>
+                                        <option value="obc"><span id="obcOption">OBC</span></option>
+                                        <option value="sc"><span id="scOption">SC</span></option>
+                                        <option value="st"><span id="stOption">ST</span></option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Preferences -->
+                            <div class="notification-preferences">
+                                <h4><i class="fas fa-bell"></i> <span id="notificationPrefsTitle">Notification Preferences</span></h4>
+                                <p class="notification-subtitle"><span id="notificationPrefsDesc">Choose how you'd like to receive updates about scheme eligibility and benefits:</span></p>
+                                <div class="notification-options">
+                                    <label class="checkbox-label notification-option">
+                                        <input type="checkbox" id="whatsappNotification" value="whatsapp">
+                                        <span class="checkmark"></span>
+                                        <div class="notification-content">
+                                            <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                                            <span class="notification-text">
+                                                <strong><span id="whatsappNotifTitle">WhatsApp Notifications</span></strong>
+                                                <small><span id="whatsappNotifDesc">Get instant updates on your WhatsApp</span></small>
+                                            </span>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="checkbox-label notification-option">
+                                        <input type="checkbox" id="smsNotification" value="sms">
+                                        <span class="checkmark"></span>
+                                        <div class="notification-content">
+                                            <i class="fas fa-sms" style="color: #2196F3;"></i>
+                                            <span class="notification-text">
+                                                <strong><span id="smsNotifTitle">SMS Notifications</span></strong>
+                                                <small><span id="smsNotifDesc">Receive text messages on your mobile</span></small>
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="privacy-consent">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="privacyConsent" required>
+                                    <span class="checkmark"></span>
+                                    <span id="privacyText">I agree to store my data for scheme eligibility notifications and give permission to contact me via selected methods.</span>
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large" id="submitLogin">
+                                <i class="fas fa-user-plus"></i> <span id="createAccountText">Create Account</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DBT Account Awareness Popup -->
+    <div class="modal" id="dbtModal">
+        <div class="modal-content">
+            <!-- Progress Bar -->
+            <div class="progress-bar-container" id="dbtProgressBar" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-university"></i> 
+                    <span id="dbtTitle">DBT Account Awareness</span>
+                    <div class="verified-badge">
+                        <i class="fas fa-shield-check"></i>
+                        <span>Verified</span>
+                    </div>
+                </h2>
+                <div class="modal-header-actions">
+                    <button class="btn btn-outline btn-sm" id="translateDbtBtn">
+                        <i class="fas fa-language"></i> <span id="translateDbtText">हिंदी में पढ़ें</span>
+                    </button>
+                    <button class="close-btn" id="closeDbtModal">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="info-card">
+                    <h3><span id="dbtWhatTitle">What is DBT?</span></h3>
+                    <p><span id="dbtDescription">Direct Benefit Transfer (DBT) ensures government benefits are directly credited to your bank account linked with Aadhaar.</span></p>
+                </div>
+                <div class="verification-section">
+                    <h3><span id="checkAccountTitle">Check Your Account Status</span></h3>
+                    <p><span id="checkAccountDesc">Verify if your bank account is properly seeded with Aadhaar for receiving government benefits.</span></p>
+                    
+                    <!-- Account Verification Form -->
+                    <div class="account-verification-form">
+                        <div class="form-group">
+                            <label for="dbtAccountNumber"><span id="accountNumberLabel">Bank Account Number</span> *</label>
+                            <div class="input-group">
+                                <div class="input-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <input type="text" id="dbtAccountNumber" placeholder="Enter your bank account number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dbtAadhaarNumber"><span id="dbtAadhaarLabel">Aadhaar Number</span> *</label>
+                            <div class="input-group">
+                                <div class="input-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <input type="text" id="dbtAadhaarNumber" pattern="[0-9]{12}" placeholder="Enter 12-digit Aadhaar number" maxlength="12" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dbtMobileNumber"><span id="dbtMobileLabel">Mobile Number</span> *</label>
+                            <div class="input-group">
+                                <div class="input-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <input type="tel" id="dbtMobileNumber" pattern="[0-9]{10}" placeholder="Enter mobile number" maxlength="10" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="verification-actions">
+                        <button class="btn btn-primary" id="verifyAccountBtn">
+                            <i class="fas fa-shield-alt"></i> <span id="verifyAccountBtnText">Verify Account Status</span>
+                        </button>
+                        <button class="btn btn-outline" id="checkOnlineBtn">
+                            <i class="fas fa-external-link-alt"></i> <span id="checkOnlineBtnText">Check on DBT Portal</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Verification Result -->
+                    <div class="verification-result" id="verificationResult" style="display: none;">
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="result-content">
+                                <h4>Account Verification Status</h4>
+                                <p id="verificationMessage">Your account status will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Scheme Recommendations -->
+                    <div class="scheme-recommendations" id="schemeRecommendations" style="display: none;">
+                        <div class="recommendation-card">
+                            <div class="recommendation-icon">
+                                💡
+                            </div>
+                            <div class="recommendation-content">
+                                <h4>Good News!</h4>
+                                <p>You are eligible for <strong>2 government schemes</strong> based on your profile.</p>
+                                <button class="btn btn-primary btn-sm" onclick="showEligibleSchemes()">
+                                    <i class="fas fa-arrow-right"></i> View Eligible Schemes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-options">
+                        <a href="https://wa.me/918118825200?text=Hello%20Nidhisetu%20Support" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> <span id="whatsappText">WhatsApp Support</span>
+                        </a>
+                        <a href="sms:8118825200&body=Hello%20Nidhisetu%20Support" class="btn btn-sms">
+                            <i class="fas fa-sms"></i> <span id="smsText">SMS Support</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+                <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-background">
+                <!-- Video Background -->
+                <video autoplay muted loop playsinline class="hero-video">
+                    <source src="assets/videos/hero-background.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="gradient-overlay"></div>
+                <div class="floating-elements">
+                    <div class="floating-shape shape-1"></div>
+                    <div class="floating-shape shape-2"></div>
+                    <div class="floating-shape shape-3"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text" data-aos="fade-up">
+                        <h1 class="hero-title">
+                            <span class="title-line">Discover</span>
+                            <span class="title-line gradient-text">Government Schemes</span>
+                            <span class="title-line">Made Simple</span>
+                        </h1>
+                        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
+                            Access over 500+ government schemes with AI-powered recommendations, 
+                            instant eligibility checks, and seamless application processes.
+                        </p>
+                        <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
+                            <button class="btn btn-nidhisetu btn-large" onclick="showEligibilityChecker()">
+                                <i class="fas fa-search"></i>
+                                Find My Schemes
+                            </button>
+                            <button class="btn btn-outline btn-large" onclick="openVoiceChat()">
+                                <i class="fas fa-microphone"></i>
+                                Voice Assistant
+                            </button>
+                            <!-- DBT Account Check button -->
+                            <button class="btn btn-outline btn-large" onclick="showDBTInfo()" style="background: #ff6b6b; color: white; border-color: #ff6b6b;">
+                                <i class="fas fa-university"></i>
+                                Check DBT Account
+                            </button>
+                        </div>
+                        <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Schemes</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">10M+</span>
+                                <span class="stat-label">Beneficiaries</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">98%</span>
+                                <span class="stat-label">Success Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual" data-aos="fade-left" data-aos-delay="300">
+                        <div class="hero-card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="card-title">Secure & Verified</div>
+                            </div>
+                            <div class="card-content">
+                                <p>Government authenticated platform with end-to-end encryption</p>
+                            </div>
+                        </div>
+                        <div class="hero-card hero-card-secondary">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="card-title">AI Powered</div>
+                            </div>
+                            <div class="card-content">
+                                <p>Smart recommendations based on your profile</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scheme Categories -->
+                <!-- Scheme Categories -->
+        <section class="scheme-categories" id="categories">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 class="section-title">Browse by Category</h2>
+                    <p class="section-subtitle">Explore schemes tailored to your needs across different sectors</p>
+                </div>
+                <div class="category-grid" data-aos="fade-up" data-aos-delay="200">
+                    <div class="category-card" data-category="agriculture">
+                        <div class="category-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Agriculture</h3>
+                        <p>Farming support, subsidies, and rural development schemes</p>
+                        <div class="scheme-count">12 schemes</div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="category-card" data-category="education">
+                        <div class="category-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Education</h3>
+                        <p>Scholarships, educational loans, and skill development</p>
+                        <div class="scheme-count">8 schemes</div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="category-card" data-category="healthcare">
+                        <div class="category-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Healthcare</h3>
+                        <p>Medical insurance, health programs, and wellness initiatives</p>
+                        <div class="scheme-count">15 schemes</div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="category-card" data-category="women-welfare">
+                        <div class="category-icon">
+                            <i class="fas fa-female"></i>
+                        </div>
+                        <h3>Women Welfare</h3>
+                        <p>Empowerment programs, safety, and economic independence</p>
+                        <div class="scheme-count">10 schemes</div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="category-card" data-category="employment">
+                        <div class="category-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Employment</h3>
+                        <p>Job creation, skill training, and entrepreneurship support</p>
+                        <div class="scheme-count">18 schemes</div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="category-card" data-category="social-welfare">
+                        <div class="category-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Social Welfare</h3>
+                        <p>Pension schemes, disability support, and elderly care</p>
+                        <div class="scheme-count">14 schemes</div>
+                        <div class="card-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Schemes -->
+        <section class="featured-schemes" id="featured">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 class="section-title">Featured Schemes</h2>
+                    <p class="section-subtitle">Most popular and beneficial government schemes</p>
+                </div>
+                <div class="schemes-grid" id="schemesGrid" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Schemes will be populated by JavaScript -->
+                </div>
+                <div class="schemes-navigation" data-aos="fade-up" data-aos-delay="400">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous
+                    </button>
+                    <button class="btn btn-primary">
+                        View All Schemes
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-outline">
+                        Next
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eligibility Checker -->
+        <section class="eligibility-checker" id="eligibilitySection">
+            <div class="container">
+                <h2 class="section-title">Check Your Eligibility</h2>
+                <div class="eligibility-form">
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" placeholder="Enter your age" min="0" max="120">
+                    </div>
+                    <div class="form-group">
+                        <label for="income">Annual Income (₹)</label>
+                        <input type="number" id="income" placeholder="Enter annual income">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category">
+                            <option value="">Select Category</option>
+                            <option value="general">General</option>
+                            <option value="obc">OBC</option>
+                            <option value="sc">SC</option>
+                            <option value="st">ST</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="education">Education Level</label>
+                        <select id="education">
+                            <option value="">Select Education</option>
+                            <option value="illiterate">Illiterate</option>
+                            <option value="primary">Primary</option>
+                            <option value="secondary">Secondary</option>
+                            <option value="higher-secondary">Higher Secondary</option>
+                            <option value="graduate">Graduate</option>
+                            <option value="post-graduate">Post Graduate</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation">Occupation</label>
+                        <select id="occupation">
+                            <option value="">Select Occupation</option>
+                            <option value="farmer">Farmer</option>
+                            <option value="student">Student</option>
+                            <option value="unemployed">Unemployed</option>
+                            <option value="employed">Employed</option>
+                            <option value="business">Business</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-large" id="checkEligibilityFormBtn">
+                        <i class="fas fa-search"></i> Check My Eligibility
+                    </button>
+                </div>
+                <div class="eligibility-results" id="eligibilityResults">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Voice Chatbot Modal -->
+    <div class="modal" id="voiceModal">
+        <div class="modal-content voice-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-microphone"></i> <span id="voiceAssistantTitle">Voice Assistant</span></h2>
+                <button class="close-btn" id="closeVoiceModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="voice-interface">
+                    <div class="voice-animation">
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring"></div>
+                        <div class="mic-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                    <p class="voice-status" id="voiceStatusText">Click to start speaking</p>
+                    <div class="voice-controls">
+                        <button class="btn btn-primary" id="startVoiceBtn">
+                            <i class="fas fa-play"></i> <span id="startVoiceText">Start Voice Chat</span>
+                        </button>
+                        <button class="btn btn-secondary" id="toggleLanguageBtn">
+                            <i class="fas fa-language"></i> <span id="toggleLangText">हिंदी</span>
+                        </button>
+                        <label class="checkbox-label" style="align-items:center;">
+                            <input type="checkbox" id="aiModeToggle">
+                            <span class="checkmark"></span>
+                            <span id="aiModeText">AI Prototype Mode</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Chat messages will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accessibility Panel -->
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <button class="accessibility-toggle" id="accessibilityToggle" title="Accessibility Options">
+            <i class="fas fa-universal-access"></i>
+        </button>
+        <div class="accessibility-menu" id="accessibilityMenu">
+            <h4><span id="accessibilityTitle">Accessibility Options</span></h4>
+            <div class="accessibility-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="highContrastCheck">
+                    <span class="checkmark"></span>
+                    High Contrast
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="largeTextCheck">
+                    <span class="checkmark"></span>
+                    Large Text
+                </label>
+            </div>
+        </div>
+    </div>    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyScheme Portal</h3>
+                    <p>Making government schemes accessible to every citizen</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" onclick="showDbtModal()">DBT Account Check</a></li>
+                        <li><a href="#" onclick="scrollToEligibility()">Eligibility Checker</a></li>
+                        <li><a href="#" onclick="showAllSchemes()">All Schemes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Official Links</h4>
+                    <ul>
+                        <li><a href="https://uidai.gov.in" target="_blank">UIDAI</a></li>
+                        <li><a href="https://dbtbharat.gov.in" target="_blank">DBT Bharat</a></li>
+                        <li><a href="https://mygov.in" target="_blank">MyGov</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Nidhisetu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <script src="blockchain/frontend/contract-abis.js"></script>
+    <script src="blockchain/frontend/web3-integration.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
