@@ -1,8 +1,8 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🏆 NidhiSetu — Government Benefits Made Easy
 
-### *Winner at Smart India Hackathon (SIH) — Ranked 17th out of 650 Teams* 🎉
+### *Winner at Smart BU Hackathon — Ranked 17th out of 700+ Teams* 🎉
 
 [![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)]()
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)]()
@@ -195,4 +195,3 @@ This project is open source and available under the [MIT License](LICENSE).
 **⭐ Star this repo if you found it useful!**
 
 </div>
-]]>
