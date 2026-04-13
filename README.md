@@ -2,7 +2,7 @@
 
 # 🏆 NidhiSetu — Government Benefits Made Easy
 
-### *Winner at Smart BU Hackathon — Ranked 17th out of 700+ Teams* 🎉
+### *Winner at Smart India Hackathon (SIH) — Ranked 17th out of 650 Teams* 🎉
 
 [![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)]()
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)]()
@@ -22,9 +22,9 @@
 
 | 🏆 Event | 📊 Rank | 👥 Competing Teams |
 |---|---|---|
-| **Smart BU Hackathon** | **17th** | **700+** |
+| **Smart India Hackathon (SIH)** | **17th** | **650** |
 
-We are proud to announce that **NidhiSetu won the Smart BU Hackathon**, securing **17th place out of 700+ teams**! This achievement validates our vision of making government benefits accessible to every citizen of India through technology.
+We are proud to announce that **NidhiSetu won at the Smart India Hackathon (SIH)**, securing **17th place out of 650 teams**! This achievement validates our vision of making government benefits accessible to every citizen of India through technology.
 
 ---
 
