@@ -1,5 +1,5 @@
 // Web3 Integration for Nidhisetu Portal
-// This file handles blockchain connectivity and smart contract interactions
+// Handles blockchain connectivity with graceful demo fallback
 
 class BlockchainIntegration {
     constructor() {
@@ -7,6 +7,254 @@ class BlockchainIntegration {
         this.account = null;
         this.contracts = {};
         this.isConnected = false;
+        this.isDemoMode = false;
+
+        // Contract addresses (update after deployment)
+        this.contractAddresses = {
+            citizenRegistry: '0x...',
+            schemeEligibility: '0x...',
+            benefitTracker: '0x...'
+        };
+
+        this.init();
+    }
+
+    async init() {
+        if (typeof window.ethereum !== 'undefined') {
+            console.log('🔗 MetaMask detected!');
+            try {
+                this.web3 = new ethers.providers.Web3Provider(window.ethereum);
+                this.setupEventListeners();
+            } catch (e) {
+                console.log('ethers init error, demo mode active');
+                this.isDemoMode = true;
+            }
+        } else {
+            console.log('ℹ️ MetaMask not found – running in demo mode');
+            this.isDemoMode = true;
+        }
+    }
+
+    // Connect to MetaMask wallet (or demo mode)
+    async connectWallet() {
+        try {
+            this.setButtonState('loading');
+
+            if (this.isDemoMode || !window.ethereum) {
+                // ── DEMO MODE ────────────────────────────────────────────
+                await this._sleep(800); // simulate network delay
+                this.account = '0xDe03...A1B2'; // fake address
+                this.isConnected = true;
+                this.isDemoMode = true;
+
+                this.setButtonState('demo');
+
+                localStorage.setItem('walletConnected', 'demo');
+                localStorage.setItem('walletAddress', this.account);
+
+                if (window.updateWalletStatus) {
+                    window.updateWalletStatus(true, this.account);
+                }
+
+                this.showNotification('✅ Demo wallet connected! Now click Login to continue.', 'success');
+                return this.account;
+            }
+
+            // ── REAL MetaMask ─────────────────────────────────────────────
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            this.account = accounts[0];
+            this.isConnected = true;
+
+            try { await this.switchToAmoy(); } catch (e) {
+                console.log('Network switch skipped:', e.message);
+            }
+
+            this.setButtonState('connected');
+
+            localStorage.setItem('walletConnected', 'true');
+            localStorage.setItem('walletAddress', this.account);
+
+            if (window.updateWalletStatus) {
+                window.updateWalletStatus(true, this.account);
+            }
+
+            this.showNotification('🎉 Wallet connected to Amoy testnet!', 'success');
+            return this.account;
+
+        } catch (error) {
+            console.error('❌ Error connecting wallet:', error);
+            this.setButtonState('disconnected');
+
+            if (error.code === 4001) {
+                this.showNotification('Connection cancelled by user.', 'info');
+            } else {
+                this.showNotification('Failed to connect. Please try again.', 'error');
+            }
+            throw error;
+        }
+    }
+
+    _sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    // Switch to Polygon Amoy Testnet
+    async switchToAmoy() {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x13882' }]
+            });
+        } catch (switchError) {
+            if (switchError.code === 4902) {
+                await this.addAmoyNetwork();
+            } else {
+                throw switchError;
+            }
+        }
+    }
+
+    async addAmoyNetwork() {
+        await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+                chainId: '0x13882',
+                chainName: 'Polygon Amoy Testnet',
+                nativeCurrency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 },
+                rpcUrls: ['https://rpc-amoy.polygon.technology/'],
+                blockExplorerUrls: ['https://amoy.polygonscan.com/']
+            }]
+        });
+    }
+
+    // Setup MetaMask event listeners
+    setupEventListeners() {
+        if (!window.ethereum) return;
+        window.ethereum.on('accountsChanged', (accounts) => {
+            if (accounts.length === 0) { this.disconnect(); }
+            else { this.account = accounts[0]; this.updateWalletUI(); }
+        });
+        window.ethereum.on('chainChanged', () => window.location.reload());
+    }
+
+    disconnect() {
+        this.account = null;
+        this.isConnected = false;
+        this.isDemoMode = false;
+        this.contracts = {};
+        this.setButtonState('disconnected');
+        localStorage.removeItem('walletConnected');
+        localStorage.removeItem('walletAddress');
+        this.showNotification('Wallet disconnected', 'info');
+    }
+
+    // ── Button states ──────────────────────────────────────────────────────
+    setButtonState(state) {
+        const btn = document.getElementById('connectWalletBtn');
+        if (!btn) return;
+
+        btn.classList.remove('connected', 'loading', 'disconnected', 'error', 'demo');
+
+        switch (state) {
+            case 'loading':
+                btn.classList.add('loading');
+                btn.innerHTML = `
+                    <div class="btn-icon"><i class="fas fa-spinner fa-spin"></i></div>
+                    <span class="btn-text">Connecting...</span>
+                    <div class="connection-indicator"></div>`;
+                break;
+
+            case 'connected': {
+                btn.classList.add('connected');
+                const short = `${this.account.slice(0,6)}...${this.account.slice(-4)}`;
+                btn.setAttribute('data-tooltip', `Connected: ${this.account}`);
+                btn.innerHTML = `
+                    <div class="btn-icon"><i class="fas fa-check-circle"></i></div>
+                    <span class="btn-text">${short}</span>
+                    <div class="connection-indicator"></div>`;
+                btn.onclick = () => window.open(`https://amoy.polygonscan.com/address/${this.account}`, '_blank');
+                break;
+            }
+
+            case 'demo':
+                btn.classList.add('connected');
+                btn.setAttribute('data-tooltip', 'Demo wallet active');
+                btn.innerHTML = `
+                    <div class="btn-icon"><i class="fas fa-check-circle"></i></div>
+                    <span class="btn-text">Demo Wallet ✓</span>
+                    <div class="connection-indicator"></div>`;
+                btn.onclick = null;
+                break;
+
+            case 'error':
+                btn.classList.add('error');
+                btn.innerHTML = `
+                    <div class="btn-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <span class="btn-text">Retry Connect</span>
+                    <div class="connection-indicator"></div>`;
+                setTimeout(() => this.setButtonState('disconnected'), 3000);
+                break;
+
+            case 'disconnected':
+            default:
+                btn.classList.add('disconnected');
+                btn.setAttribute('data-tooltip', 'Connect your MetaMask wallet (or use demo)');
+                btn.innerHTML = `
+                    <div class="btn-icon"><i class="fas fa-wallet"></i></div>
+                    <span class="btn-text">Connect Wallet</span>
+                    <div class="connection-indicator"></div>`;
+                btn.onclick = () => this.connectWallet();
+                break;
+        }
+    }
+
+    updateWalletUI() {
+        const walletStatus = document.getElementById('walletStatus');
+        if (this.isConnected && this.account) {
+            this.setButtonState(this.isDemoMode ? 'demo' : 'connected');
+            if (walletStatus) {
+                const label = this.isDemoMode ? 'Demo Wallet Active' : 'Wallet Connected';
+                walletStatus.innerHTML = `
+                    <div class="wallet-connected">
+                        <i class="fas fa-check-circle"></i>
+                        <span>${label}: ${this.account.slice(0,8)}...${this.account.slice(-4)}</span>
+                    </div>`;
+            }
+        } else {
+            this.setButtonState('disconnected');
+            if (walletStatus) {
+                walletStatus.innerHTML = `
+                    <div class="wallet-disconnected">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Wallet Not Connected (optional for demo)</span>
+                    </div>`;
+            }
+        }
+    }
+
+    showNotification(message, type = 'info') {
+        // Prefer the global showNotification if available
+        if (typeof window.showNotification === 'function') {
+            window.showNotification(message, type);
+            return;
+        }
+        const n = document.createElement('div');
+        n.className = `notification notification-${type}`;
+        n.innerHTML = `
+            <div class="notification-content">
+                <div class="notification-icon">
+                    ${type === 'success' ? '<i class="fas fa-check-circle"></i>'
+                    : type === 'error'   ? '<i class="fas fa-times-circle"></i>'
+                    : '<i class="fas fa-info-circle"></i>'}
+                </div>
+                <div class="notification-text">${message}</div>
+            </div>`;
+        document.body.appendChild(n);
+        setTimeout(() => n.remove(), 5000);
+    }
+}
+
+// Initialize & expose globally
+window.blockchain = new BlockchainIntegration();
+
         
         // Contract addresses (update after deployment)
         this.contractAddresses = {

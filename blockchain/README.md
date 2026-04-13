@@ -1,6 +1,5 @@
 # Blockchain Integration for Government Schemes Portal
 
-## 🎯 SIH Hackathon - Blockchain Implementation Guide
 
 ### Overview
 This directory contains blockchain integration for the Nidhisetu government schemes portal, adding transparency, security, and trust through decentralized technology.

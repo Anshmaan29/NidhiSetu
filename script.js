@@ -731,38 +731,9 @@ function populateSchemes() {
     }
 }
 
-// Show scheme video in modal
+// Show scheme video — open on YouTube directly
 function showSchemeVideo(videoId, title) {
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.innerHTML = `
-        <div class="modal-content" style="max-width: 800px;">
-            <div class="modal-header">
-                <h2>${title}</h2>
-                <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <iframe 
-                    width="100%" 
-                    height="400" 
-                    src="https://www.youtube.com/embed/${videoId}" 
-                    title="${title}" 
-                    frameborder="0" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    modal.style.display = 'block';
-    
-    // Close modal on outside click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.remove();
-        }
-    });
+    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
 }
 
 // Enhanced Eligibility Checker
@@ -2206,21 +2177,20 @@ function setupEventListeners() {
             }
             
             try {
-                if (window.blockchain) {
+                if (window.blockchain && window.ethereum) {
                     await window.blockchain.connectWallet();
+                } else if (!window.ethereum) {
+                    // Demo mode: simulate wallet connection without MetaMask
+                    const demoAddress = '0xDemo...A1B2';
+                    connectWalletBtn.classList.add('connected');
+                    connectWalletBtn.querySelector('.btn-text').textContent = 'Demo Wallet ✓';
+                    if (window.updateWalletStatus) {
+                        window.updateWalletStatus(true, '0xDemoAddress1234A1B2');
+                    }
+                    showNotification('✅ Demo wallet connected! You can now fill in your login details.', 'success');
                 } else {
                     console.error('Blockchain integration not loaded');
-                    // Show fallback notification
-                    const notification = document.createElement('div');
-                    notification.className = 'notification notification-error';
-                    notification.innerHTML = `
-                        <div class="notification-content">
-                            <div class="notification-icon"><i class="fas fa-exclamation-circle"></i></div>
-                            <div class="notification-text">Please install MetaMask to use blockchain features</div>
-                        </div>
-                    `;
-                    document.body.appendChild(notification);
-                    setTimeout(() => notification.remove(), 5000);
+                    showNotification('Wallet connect unavailable. You can still login without a wallet.', 'info');
                 }
             } catch (error) {
                 console.error('Error connecting wallet:', error);
@@ -2384,6 +2354,38 @@ function hideLoginModal() {
     document.body.style.overflow = 'auto';
 }
 
+// Demo data auto-fill function
+function fillDemoLoginData() {
+    document.getElementById('fullName').value = 'Rahul Sharma';
+    document.getElementById('loginAge').value = '28';
+    document.getElementById('loginEmail').value = 'rahul.sharma@example.com';
+    document.getElementById('loginPhone').value = '9876543210';
+    document.getElementById('loginIncome').value = '120000';
+    document.getElementById('loginAadhaar').value = '234567890123';
+    document.getElementById('loginGender').value = 'male';
+    document.getElementById('loginCategory').value = 'obc';
+    document.getElementById('loginEducation').value = 'graduate';
+    document.getElementById('loginOccupation').value = 'employed';
+    document.getElementById('emailNotifications').checked = true;
+    document.getElementById('whatsappNotifications').checked = true;
+    document.getElementById('smsNotifications').checked = false;
+    document.getElementById('privacyConsent').checked = true;
+
+    // Visual feedback on auto-fill button
+    const btn = document.getElementById('fillDemoDataBtn');
+    if (btn) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Filled!';
+        btn.style.background = '#4CAF50';
+        btn.style.color = 'white';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-bolt"></i> Auto-Fill';
+            btn.style.background = 'white';
+            btn.style.color = '#764ba2';
+        }, 2000);
+    }
+}
+
+
 function handleLoginSubmit(e) {
     e.preventDefault();
     
@@ -2422,7 +2424,15 @@ function handleLoginSubmit(e) {
     localStorage.setItem('notificationPreferences', JSON.stringify(notificationPreferences));
     
     // Show success message
-    showNotification('Account created successfully! You will receive notifications when you become eligible for schemes.', 'success');
+    const name = formData.fullName.split(' ')[0];
+    showNotification(`🎉 Welcome, ${name}! Account created successfully. Checking your scheme eligibility...`, 'success');
+    
+    // Update Login button to show logged-in state
+    const loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) {
+        loginBtn.innerHTML = `<i class="fas fa-user-check"></i> <span id="loginText">${name}</span>`;
+        loginBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+    }
     
     // Hide modal
     hideLoginModal();
@@ -2694,14 +2704,12 @@ function createSchemeCard(scheme) {
             <div class="video-section">
                 <h4><i class="fas fa-play-circle"></i> Watch Video Guide</h4>
                 <p>Learn about this scheme in simple language</p>
-                <iframe 
-                    class="scheme-video"
-                    src="https://www.youtube.com/embed/${scheme.videoId}?rel=0&modestbranding=1"
-                    title="${scheme.videoTitle}"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <a href="https://www.youtube.com/watch?v=${scheme.videoId}" target="_blank" rel="noopener noreferrer" class="video-thumbnail-link" style="display:block;position:relative;border-radius:8px;overflow:hidden;cursor:pointer;text-decoration:none;">
+                    <img src="https://img.youtube.com/vi/${scheme.videoId}/hqdefault.jpg" alt="${scheme.videoTitle}" style="width:100%;display:block;border-radius:8px;" onerror="this.src='https://img.youtube.com/vi/${scheme.videoId}/mqdefault.jpg'">
+                    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                        <i class="fas fa-play" style="color:white;font-size:22px;margin-left:4px;"></i>
+                    </div>
+                </a>
             </div>
             
             <div class="eligibility-criteria">

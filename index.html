@@ -90,49 +90,54 @@
             </div>
             <div class="modal-body">
                 <div class="login-container">
+                    <!-- Demo Data Banner -->
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                        <div style="color: white; font-size: 13px;">
+                            <i class="fas fa-magic" style="margin-right: 6px;"></i>
+                            <strong>Demo Mode:</strong> Fill sample data instantly
+                        </div>
+                        <button type="button" id="fillDemoDataBtn" onclick="fillDemoLoginData()" style="background: white; color: #764ba2; border: none; border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                            <i class="fas fa-bolt"></i> Auto-Fill
+                        </button>
+                    </div>
+
                     <!-- Registration Form Section -->
                     <div class="login-form-section">
                         <form id="loginForm" class="login-form">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="fullName"><span id="nameLabel">Full Name</span> *</label>
-                                    <input type="text" id="fullName" required>
+                                    <input type="text" id="fullName" placeholder="e.g. Rahul Sharma" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="loginAge"><span id="ageLabel">Age</span> *</label>
-                                    <input type="number" id="loginAge" min="1" max="120" required>
+                                    <input type="number" id="loginAge" min="1" max="120" placeholder="e.g. 28" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="loginEmail"><span id="emailLabel">Email</span> *</label>
-                                    <input type="email" id="loginEmail" required>
+                                    <input type="email" id="loginEmail" placeholder="e.g. rahul@example.com" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="loginPhone"><span id="phoneLabel">Phone Number</span> *</label>
-                                    <input type="tel" id="loginPhone" pattern="[0-9]{10}" required>
+                                    <input type="tel" id="loginPhone" pattern="[0-9]{10}" placeholder="e.g. 9876543210" required>
                                 </div>
                             </div>
-                            
-                        <div class="form-group">
-                            <label for="userAadhaar">Aadhaar Number</label>
-                            <input type="text" id="userAadhaar" name="aadhaar" placeholder="Enter 12-digit Aadhaar number" required>
-                        </div>
-                        
-                        <!-- Blockchain Status -->
-                        <div class="blockchain-status" id="walletStatus">
-                            <div class="wallet-disconnected" id="walletStatusContent">
-                                <i class="fas fa-times-circle"></i>
-                                <span id="walletStatusText">Wallet Not Connected</span>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loginIncome">Annual Income (₹) *</label>
+                                    <input type="number" id="loginIncome" min="0" placeholder="e.g. 120000" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginAadhaar">Aadhaar Number *</label>
+                                    <input type="text" id="loginAadhaar" maxlength="12" pattern="[0-9]{12}" placeholder="12-digit Aadhaar" required>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="blockchain-actions">
-                            <button type="button" class="btn btn-outline" id="registerOnBlockchainBtn">
-                                <i class="fab fa-ethereum"></i> Register on Blockchain
-                            </button>
-                        </div>                            <div class="form-row">
+
+                            <div class="form-row">
                                 <div class="form-group">
                                     <label for="loginGender"><span id="genderLabel">Gender</span> *</label>
                                     <select id="loginGender" required>
@@ -153,38 +158,85 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loginEducation">Education Level *</label>
+                                    <select id="loginEducation" required>
+                                        <option value="">Select Education</option>
+                                        <option value="illiterate">Illiterate</option>
+                                        <option value="primary">Primary</option>
+                                        <option value="secondary">Secondary</option>
+                                        <option value="higher-secondary">Higher Secondary</option>
+                                        <option value="graduate">Graduate</option>
+                                        <option value="post-graduate">Post Graduate</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginOccupation">Occupation *</label>
+                                    <select id="loginOccupation" required>
+                                        <option value="">Select Occupation</option>
+                                        <option value="farmer">Farmer</option>
+                                        <option value="student">Student</option>
+                                        <option value="unemployed">Unemployed</option>
+                                        <option value="employed">Employed</option>
+                                        <option value="business">Business</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Blockchain Status -->
+                            <div class="blockchain-status" id="walletStatus">
+                                <div class="wallet-disconnected" id="walletStatusContent">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span id="walletStatusText">Wallet Not Connected (optional for demo)</span>
+                                </div>
+                            </div>
+
                             <!-- Notification Preferences -->
                             <div class="notification-preferences">
                                 <h4><i class="fas fa-bell"></i> <span id="notificationPrefsTitle">Notification Preferences</span></h4>
-                                <p class="notification-subtitle"><span id="notificationPrefsDesc">Choose how you'd like to receive updates about scheme eligibility and benefits:</span></p>
+                                <p class="notification-subtitle"><span id="notificationPrefsDesc">Choose how you'd like to receive updates:</span></p>
                                 <div class="notification-options">
                                     <label class="checkbox-label notification-option">
-                                        <input type="checkbox" id="whatsappNotification" value="whatsapp">
+                                        <input type="checkbox" id="emailNotifications" value="email">
+                                        <span class="checkmark"></span>
+                                        <div class="notification-content">
+                                            <i class="fas fa-envelope" style="color: #E91E63;"></i>
+                                            <span class="notification-text">
+                                                <strong>Email Notifications</strong>
+                                                <small>Get updates in your inbox</small>
+                                            </span>
+                                        </div>
+                                    </label>
+
+                                    <label class="checkbox-label notification-option">
+                                        <input type="checkbox" id="whatsappNotifications" value="whatsapp">
                                         <span class="checkmark"></span>
                                         <div class="notification-content">
                                             <i class="fab fa-whatsapp" style="color: #25D366;"></i>
                                             <span class="notification-text">
                                                 <strong><span id="whatsappNotifTitle">WhatsApp Notifications</span></strong>
-                                                <small><span id="whatsappNotifDesc">Get instant updates on your WhatsApp</span></small>
+                                                <small><span id="whatsappNotifDesc">Get instant updates on WhatsApp</span></small>
                                             </span>
                                         </div>
                                     </label>
-                                    
+
                                     <label class="checkbox-label notification-option">
-                                        <input type="checkbox" id="smsNotification" value="sms">
+                                        <input type="checkbox" id="smsNotifications" value="sms">
                                         <span class="checkmark"></span>
                                         <div class="notification-content">
                                             <i class="fas fa-sms" style="color: #2196F3;"></i>
                                             <span class="notification-text">
                                                 <strong><span id="smsNotifTitle">SMS Notifications</span></strong>
-                                                <small><span id="smsNotifDesc">Receive text messages on your mobile</span></small>
+                                                <small><span id="smsNotifDesc">Receive text messages on mobile</span></small>
                                             </span>
                                         </div>
                                     </label>
                                 </div>
                             </div>
-                            
+
                             <div class="privacy-consent">
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="privacyConsent" required>
@@ -192,9 +244,9 @@
                                     <span id="privacyText">I agree to store my data for scheme eligibility notifications and give permission to contact me via selected methods.</span>
                                 </label>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-primary btn-large" id="submitLogin">
-                                <i class="fas fa-user-plus"></i> <span id="createAccountText">Create Account</span>
+                                <i class="fas fa-user-plus"></i> <span id="createAccountText">Create Account &amp; Login</span>
                             </button>
                         </form>
                     </div>
@@ -660,7 +712,7 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <script src="blockchain/frontend/contract-abis.js"></script>
     <script src="blockchain/frontend/web3-integration.js"></script>
     <script src="script.js"></script>

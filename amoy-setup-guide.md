@@ -44,7 +44,7 @@ Your website has been updated to use **Polygon Amoy Testnet** (the current offic
 - **Explorer**: Updated to amoy.polygonscan.com
 - **Functions**: switchToMumbai() → switchToAmoy()
 
-## 🎯 For SIH Demo:
+## 🎯 
 
 **Talking Points:**
 1. "We use the latest Polygon Amoy testnet"

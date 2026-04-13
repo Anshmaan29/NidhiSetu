@@ -13,10 +13,50 @@ const PORT = process.env.PORT || 3001;
 const Citizen = require('./models/Citizen');
 const Scheme = require('./models/Scheme');
 
-// Security Middleware
-app.use(helmet());
+// Security Middleware — allow required CDN scripts and styles
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "'unsafe-eval'",
+                "https://unpkg.com",
+                "https://cdnjs.cloudflare.com"
+            ],
+            scriptSrcAttr: ["'unsafe-inline'"],
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://unpkg.com",
+                "https://cdnjs.cloudflare.com",
+                "https://fonts.googleapis.com"
+            ],
+            fontSrc: [
+                "'self'",
+                "https://fonts.gstatic.com",
+                "https://cdnjs.cloudflare.com"
+            ],
+            imgSrc: ["'self'", "data:", "https:", "blob:"],
+            connectSrc: [
+                "'self'",
+                "https://rpc-amoy.polygon.technology",
+                "https://polygon-rpc.com",
+                "https://*.polygonscan.com"
+            ],
+            mediaSrc: ["'self'"],
+            frameSrc: ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"]
+        }
+    }
+}));
 app.use(cors({
-    origin: ['http://localhost:8000', 'http://127.0.0.1:8000'],
+    origin: [
+        'http://localhost:8000',
+        'http://127.0.0.1:8000',
+        'http://localhost:3001',
+        'http://127.0.0.1:3001'
+    ],
     credentials: true
 }));
 
